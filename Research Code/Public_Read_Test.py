@@ -6,6 +6,3 @@ for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture\Ini
         #print(os.path.abspath(os.path.join(root, name)))
         if name == "FFT_Test_2.wav":
             [sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
-            print(name)
-
-#[sample_rate, data] = read(r"‪P:\+Courses\AstroStats\LivingSeaSculpture\Initial Data for Testing\FFT_Test_2.wav")
