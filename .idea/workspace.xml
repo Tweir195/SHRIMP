@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37e04c0f-e965-46c8-a6a8-1ca4b8272a0a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/STFT_Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Research Code/STFT_Test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Research Code/STFT_Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Research Code/STFT_Test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Research Code/STFT_Test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="57" lean-forward="true" selection-start-line="11" selection-start-column="57" selection-end-line="11" selection-end-column="57" />
+            <state relative-caret-position="722">
+              <caret line="51" column="38" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -54,6 +55,7 @@
         <option value="$PROJECT_DIR$/FFT_Test.py" />
         <option value="$PROJECT_DIR$/Research Code/Public_Read_Test.py" />
         <option value="$PROJECT_DIR$/STFT_Test.py" />
+        <option value="$PROJECT_DIR$/Research Code/STFT_Test.py" />
       </list>
     </option>
   </component>
@@ -68,6 +70,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -84,7 +87,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -107,7 +109,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.STFT_Test">
+  <component name="RunManager" selected="Python.STFT_Test (1)">
     <configuration name="FFT_Test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SHRIMP" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -121,6 +123,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="C:\Users\bzhang\Documents\GitHub\SHRIMP\Research Code\Public_Read_Test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="STFT_Test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SHRIMP" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Research Code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Research Code/STFT_Test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -152,6 +175,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.STFT_Test (1)" />
         <item itemvalue="Python.STFT_Test" />
         <item itemvalue="Python.FFT_Test" />
       </list>
@@ -192,7 +216,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
       <window_info anchor="bottom" id="Version Control" order="5" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -215,8 +239,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Research Code/STFT_Test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="57" lean-forward="true" selection-start-line="11" selection-start-column="57" selection-end-line="11" selection-end-column="57" />
+        <state relative-caret-position="722">
+          <caret line="51" column="38" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
