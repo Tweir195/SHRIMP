@@ -4,3 +4,7 @@ def corrdata(boat,fish):
     boat: numpy array
     fish: numpy array
     """
+    #We need to find how much boat noise there is per timestamp
+    #then we need to make arrays of the two datas to feed into the correlation function
+    #Correlate the two arrays, and output result
+    
