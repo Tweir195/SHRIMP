@@ -25,30 +25,37 @@ print(Zxx.shape)
 # plt.ylim([0, 5])
 # plt.show()
 
-smoothness = 10 # This determines how wide the moving average is, higher is more filtered
+smoothness = 5 # This determines how wide the moving average is, higher is more filtered
 
-for i in range(len(Zxx[1,:])-smoothness): # A 2D moving floor
-    Zxx[:,i] = min(sum(Zxx[:,i:i+smoothness]))
+#for i in range(len(Zxx[1,:])-smoothness): # A 2D moving floor, horizontal
+#    Zxx[:,i] = min(sum(Zxx[:,i:i+smoothness]))
+
+#for i in range(len(Zxx[:,1])-smoothness): # A 2D moving floor, vertical
+#    Zxx[i,:] = min(sum(Zxx[i:i+smoothness,:]))
 
 
 psd = np.array([])
 for slice in range(0, len(t)):
     psd = np.append(psd, np.trapz(np.abs(Zxx[:, slice]), f))
 
+pbar = np.mean(psd)
 
-#for i in range(0, len(psd)-smoothness): # A moving average
-#    psd[i] = sum(psd[i:i+smoothness])/(smoothness+1)
+for i in range(0, len(psd)):
+    psd[i] = psd[i]**2/pbar
+
+for i in range(0, len(psd)-smoothness): # A moving average
+    psd[i] = sum(psd[i:i+smoothness])/(smoothness+1)
 
 #for i in range(0, len(psd)-smoothness): # A moving floor
 #    psd[i] = min(psd[i:i+smoothness])
 
 
-timestamps = np.where(psd > 100000)
-print('timestamps')
-print(timestamps)
+#timestamps = np.where(psd > 100000)
+#print('timestamps')
+#print(timestamps)
 fig = plt.plot(t, psd)
 axs = plt.axes()
-for time in np.nditer(timestamps):
+#for time in np.nditer(timestamps):
     # print(time)
-    axs.axvline(t[int(time)], color='red', ymax=0.5)
+    #axs.axvline(t[int(time)], color='red', ymax=0.5)
 plt.show()
