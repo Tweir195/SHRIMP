@@ -58,59 +58,64 @@ for line in range(0,len(Sxx)):
 for x in Sxx:
     print(x)
 
-plt.pcolormesh(t_s, f_s, Sxx)
-plt.ylabel('frequency [hz]')
-plt.xlabel('time [sec]')
-plt.show()
-
-#calculate power spectral density (psd)
-psd = np.array([])
-for slice in range(0, len(t)):
-    psd = np.append(psd, np.trapz(np.abs(Zxx[:, slice]), f))
-timestamps = np.where(psd > 300000)[0]
-
-
-#############################################################################
-#run short time fourier transform on time range
-f, t, Zxx = stft(data_sample, fs=sample_rate)
-#print(Zxx.shape)
-
-#filter out anything above a certain frequency
-for freq in f:
-    if freq > freq_cap:
-        index = int(np.where(f == freq)[0])
-        break
-Zxx = Zxx[:index]
-f = f[:index]
-
-#calculate power spectral density (psd)
-psd = np.array([])
-for slice in range(0, len(t)):
-    psd = np.append(psd, np.trapz(np.abs(Zxx[:, slice]), f))
-timestamps = np.where(psd > 300000)[0]
-
-timestamps_clean = np.array([])
-
-#eliminate duplicate peaks
-current_val = timestamps[0]
-last_val = t[timestamps[0]]
-for time_index in range(1, timestamps.size):
-    # print(last_val)
-    # print(t[timestamps[time_index]])
-    if last_val >= t[timestamps[time_index]] - 0.1:
-        last_val = t[timestamps[time_index]]
-        continue
-    else:
-        timestamps_clean = np.append(timestamps_clean, current_val)
-        current_val = timestamps[time_index]
-        last_val = t[timestamps[time_index]]
-#print(timestamps)
-#print(timestamps_clean)
-
-#fig1 = plt.plot(t, psd)
-#axs1 = plt.axes()
-#for time in np.nditer(timestamps_clean):
-#    axs1.axvline(t[int(time)], color='red', ymax=0.5)
+#plt.pcolormesh(t_s, f_s, Sxx)
+#plt.ylabel('frequency [hz]')
+#plt.xlabel('time [sec]')
 #plt.show()
 
-############################################################
+#calculate power spectral density (psd)
+psd = np.array([])
+for slice in range(0, len(t_s)):
+    psd = np.append(psd, np.trapz(np.abs(Sxx[:, slice]), f_s))
+timestamps = np.where(psd > 300000)[0]
+
+fig1 = plt.plot(t_s, psd)
+axs1 = plt.axes()
+#for time in np.nditer(timestamps_clean):
+#    axs1.axvline(t_s[int(time)], color='red', ymax=0.5)
+plt.show()
+
+##############################################################################
+##run short time fourier transform on time range
+#f, t, Zxx = stft(data_sample, fs=sample_rate)
+##print(Zxx.shape)
+
+##filter out anything above a certain frequency
+#for freq in f:
+#    if freq > freq_cap:
+#        index = int(np.where(f == freq)[0])
+#        break
+#Zxx = Zxx[:index]
+#f = f[:index]
+
+##calculate power spectral density (psd)
+#psd = np.array([])
+#for slice in range(0, len(t)):
+#    psd = np.append(psd, np.trapz(np.abs(Zxx[:, slice]), f))
+#timestamps = np.where(psd > 300000)[0]
+
+#timestamps_clean = np.array([])
+
+##eliminate duplicate peaks
+#current_val = timestamps[0]
+#last_val = t[timestamps[0]]
+#for time_index in range(1, timestamps.size):
+#    # print(last_val)
+#    # print(t[timestamps[time_index]])
+#    if last_val >= t[timestamps[time_index]] - 0.1:
+#        last_val = t[timestamps[time_index]]
+#        continue
+#    else:
+#        timestamps_clean = np.append(timestamps_clean, current_val)
+#        current_val = timestamps[time_index]
+#        last_val = t[timestamps[time_index]]
+##print(timestamps)
+##print(timestamps_clean)
+
+##fig1 = plt.plot(t, psd)
+##axs1 = plt.axes()
+##for time in np.nditer(timestamps_clean):
+##    axs1.axvline(t[int(time)], color='red', ymax=0.5)
+##plt.show()
+
+#############################################################
