@@ -43,19 +43,35 @@ pbar = np.mean(psd)
 for i in range(0, len(psd)):
     psd[i] = psd[i]**2/pbar
 
+psda = psd
+psdf = psd
+
 for i in range(0, len(psd)-smoothness): # A moving average
-    psd[i] = sum(psd[i:i+smoothness])/(smoothness+1)
+    psda[i] = sum(psd[i:i+smoothness])/(smoothness+1)
 
-#for i in range(0, len(psd)-smoothness): # A moving floor
-#    psd[i] = min(psd[i:i+smoothness])
+for i in range(0, len(psd)-smoothness): # A moving floor
+    psdf[i] = min(psd[i:i+smoothness])
 
 
-#timestamps = np.where(psd > 100000)
+psdnorm = psd/max(psd)
+psdanorm = psda/max(psda)
+psdfnorm = psdf/max(psdf)
+
+#timestamps = np.where(psd > 1000000)
 #print('timestamps')
 #print(timestamps)
-fig = plt.plot(t, psd)
-axs = plt.axes()
-#for time in np.nditer(timestamps):
-    # print(time)
-    #axs.axvline(t[int(time)], color='red', ymax=0.5)
+#plt.plot(t, psdnorm, 'b')
+#plt.plot(t, psdanorm, 'r')
+#plt.plot(t, psdfnorm, 'g')
+
+print(max(psdanorm-psdfnorm))
+print(min(psdanorm-psdfnorm))
+
+plt.plot(t, psdanorm-psdfnorm)
+
 plt.show()
+
+#axs = plt.axes()
+#for time in np.nditer(timestamps):
+    #print(time)
+    #axs.axvline(t[int(time)], color='red', ymax=0.5)
