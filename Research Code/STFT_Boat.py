@@ -14,15 +14,16 @@ for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture\Ini
     for name in files:
         # print(os.path.abspath(os.path.join(root, name)))
         if name == "Boat_Test.wav":
+        #if name == "FFT_Test_2.wav":
             [sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
 
 #define data sample range
-data_sample = data[10*sample_rate:24*sample_rate, 0]
+data_sample = data[11*sample_rate:24*sample_rate, 0]
 
 #############################################################################
 #run short time fourier transform on time range
 f, t, Zxx = stft(data_sample, fs=sample_rate)
-print(Zxx.shape)
+#print(Zxx.shape)
 
 #filter out anything above a certain frequency
 for freq in f:
@@ -53,8 +54,8 @@ for time_index in range(1, timestamps.size):
         timestamps_clean = np.append(timestamps_clean, current_val)
         current_val = timestamps[time_index]
         last_val = t[timestamps[time_index]]
-##print(timestamps)
-##print(timestamps_clean)
+#print(timestamps)
+#print(timestamps_clean)
 
 #fig1 = plt.plot(t, psd)
 #axs1 = plt.axes()
@@ -65,7 +66,13 @@ for time_index in range(1, timestamps.size):
 ######################################################################################################################
 #take spectrogram for boat noises
 f_s, t_s, Sxx = spectrogram(data_sample, fs=sample_rate)
-print(Sxx)
+#for y in data_sample:
+#    print(y)
+#for x in Sxx:
+#    print(x)
+#print(Sxx)
+print(f_s)
+#print(t_s)
 
 
 #filter out anything above a certain frequency
@@ -77,7 +84,7 @@ Sxx = Sxx[:index]
 f_s = f_s[:index]
 
 
-plt.pcolormesh(t_s, f_s, Sxx)
-plt.ylabel('Frequency [Hz]')
-plt.xlabel('Time [sec]')
-plt.show()
+#plt.pcolormesh(t_s, f_s, Sxx)
+#plt.ylabel('Frequency [Hz]')
+#plt.xlabel('Time [sec]')
+#plt.show()
