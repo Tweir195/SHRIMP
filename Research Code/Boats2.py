@@ -58,10 +58,10 @@ for line in range(0,len(Sxx)):
 for x in Sxx:
     print(x)
 
-#plt.pcolormesh(t_s, f_s, Sxx)
-#plt.ylabel('frequency [hz]')
-#plt.xlabel('time [sec]')
-#plt.show()
+plt.pcolormesh(t_s, f_s, Sxx)
+plt.ylabel('frequency [hz]')
+plt.xlabel('time [sec]')
+plt.show()
 
 #calculate power spectral density (psd)
 psd = np.array([])
@@ -69,11 +69,11 @@ for slice in range(0, len(t_s)):
     psd = np.append(psd, np.trapz(np.abs(Sxx[:, slice]), f_s))
 timestamps = np.where(psd > 300000)[0]
 
-fig1 = plt.plot(t_s, psd)
-axs1 = plt.axes()
-#for time in np.nditer(timestamps_clean):
-#    axs1.axvline(t_s[int(time)], color='red', ymax=0.5)
-plt.show()
+#fig1 = plt.plot(t_s, psd)
+#axs1 = plt.axes()
+##for time in np.nditer(timestamps_clean):
+##    axs1.axvline(t_s[int(time)], color='red', ymax=0.5)
+#plt.show()
 
 ##############################################################################
 ##run short time fourier transform on time range
