@@ -17,6 +17,7 @@ for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture\Ini
     for name in files:
         # print(os.path.abspath(os.path.join(root, name)))
         #if name == "Boat_Test.wav":
+<<<<<<< HEAD
         #if name == "FFT_Test_2.wav":
         if name == "Symphony1.wav":
             [sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
@@ -24,6 +25,13 @@ for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture\Ini
 #define data sample range
 data_sample = data[20*sample_rate:6*60*sample_rate, 0]
 
+=======
+        if name == "FFT_Test_2.wav":
+            [sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
+
+#define data sample range
+data_sample = data[20*sample_rate:80*sample_rate, 0]
+>>>>>>> 6c3579769e36bd670fd60968a978e236cad8a11e
 
 ######################################################################################################################
 #take spectrogram for boat noises
@@ -33,7 +41,11 @@ f_s, t_s, Sxx = spectrogram(data_sample, fs=sample_rate)
 #for x in Sxx:
 #    print(x)
 #print(Sxx)
+<<<<<<< HEAD
 print(f_s)
+=======
+#print(f_s)
+>>>>>>> 6c3579769e36bd670fd60968a978e236cad8a11e
 #print(t_s)
 
 
@@ -61,11 +73,18 @@ for line in range(0,len(Sxx)):
 for x in Sxx:
     print(x)
 
+<<<<<<< HEAD
 #plt.subplot(2, 1, 1)
 plt.pcolormesh(t_s, f_s, Sxx)
 plt.ylabel('frequency [hz]')
 plt.xlabel('time [sec]')
 plt.show()
+=======
+#plt.pcolormesh(t_s, f_s, Sxx)
+#plt.ylabel('frequency [hz]')
+#plt.xlabel('time [sec]')
+#plt.show()
+>>>>>>> 6c3579769e36bd670fd60968a978e236cad8a11e
 
 #calculate power spectral density (psd)
 psd = np.array([])
@@ -80,6 +99,7 @@ smoothness = 100
 boatcheck = []
 
 for i in range(0, (len(psd)-smoothness)):
+<<<<<<< HEAD
     boatcheck.append(max(psd[i:i+smoothness]))
 
 trime = t_s[0:len(psd)-smoothness]
@@ -87,6 +107,16 @@ trime = t_s[0:len(psd)-smoothness]
 #plt.subplot(2, 1, 2)
 #plt.plot(t_s, psd, trime, boatcheck)
 #plt.show()
+=======
+    boatcheck.append(min(psd[i:i+smoothness]))
+
+trime = t_s[0:len(psd)-smoothness]
+
+
+plt.plot(t_s, psd)
+plt.plot(trime, boatcheck)
+plt.show()
+>>>>>>> 6c3579769e36bd670fd60968a978e236cad8a11e
 
 # NEW CONTENT ENDS HERE
 
