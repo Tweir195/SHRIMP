@@ -11,7 +11,7 @@ def fishfilt(data, sample_rate, starttime = 0, endtime = -1):
     """
     
     # Start time and end time are optional parameters; if none are given it uses the whole file
-    if endtime = -1:
+    if endtime == -1:
         endtime = len(data)/sample_rate
 
     # Trim that massive file down to a more manageable size, in the interest of processing time
