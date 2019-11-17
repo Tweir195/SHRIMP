@@ -33,4 +33,6 @@ time_fish = np.delete(time_fish,removal_indices)
 
 # Plot
 makegraph(boat_noise,time_fish)
+
+# Find correlation
 corrdata(boat_noise[1],time_fish,100,5,1,True)
