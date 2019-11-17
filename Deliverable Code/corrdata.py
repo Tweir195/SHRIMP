@@ -31,19 +31,19 @@ def corrdata(boat,fish,cliplength,timebucket,samplerate,plot=False):
     for each in boatchunk: #Find the mean in each time bucket so that it matches the fish data
         #print(each)
         if len(each)!= sampsize:
-            print('The array was not divisible') #catch error
+            print('The array was not divisible') #this catches a possible error
             break
         boatmean = np.mean(each)
         #print(each, boatmean)
         boatnoise.append(boatmean)
     
     #Correlate the two arrays, and output result
-    if len(boatnoise) != len(fish):
-        print('not the same length',len(boatnoise),len(fish)) #this catches a possible error
-    [corr,null] = stats.pearsonr(boatnoise,fish)
+    if len(boatnoise) != len(fishbucket):
+        print('not the same length',len(boatnoise),len(fishbucket)) #catch error
+    [corr,null] = stats.pearsonr(boatnoise,fishbucket)
     print('Pearson Correlation Coeff:',' %.2f' % corr)
     if plot ==True:
-        plt.plot(newboat,fishbucket,'o')
+        plt.plot(boatnoise,fishbucket,'o')
         plt.xlabel('Boat Noise')
         plt.ylabel('Fish Noise')
         plt.title('Boats vs. Fish, Test Data')
@@ -55,9 +55,12 @@ if __name__ == "__main__":
     import numpy as np
     import matplotlib.pyplot as plt
     import scipy.stats as stats
+
+    # Tailored Datset
     fakeboat = np.array([1,2,3,4,4,4,4,4,4,4,3,3,3,2,2,2,1,1,10])
     fakefish = np.array([3,1,1,2,2.5,3])
 
+    #Make larger dataset
     # Define a boat-like array
     time_boat = np.linspace(0,100,101)
     boat_data = stats.norm.pdf(time_boat,loc=50,scale=10)
@@ -74,9 +77,4 @@ if __name__ == "__main__":
     time_fish = np.delete(time_fish,removal_indices)
 
 
-    newboat = corrdata(boat_noise,time_fish,100,5,1)
-    plt.plot(newboat,time_fish,'o')
-    plt.xlabel('Boat Noise')
-    plt.ylabel('Fish Noise')
-    plt.title('Boats vs. Fish, Test Data')
-    plt.show()
+    corrdata(boat_noise[1],time_fish,100,5,1,True)

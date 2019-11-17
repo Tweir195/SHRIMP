@@ -1,7 +1,7 @@
 """This file is the main running file for our project
 """
 # Import graph making function
-#from boatfilt import *
+from boatfilt import *
 from fishfilt import *
 #from timestamp import *
 from corrdata import *
@@ -10,10 +10,11 @@ from makegraph import *
 import scipy.stats as stats
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.io.wavfile import read
 import os
+from scipy.io.wavfile import read
 from scipy.signal import stft
 from scipy.signal.windows import hamming
+#from scipy.signal import find_peaks
 
 # Define a boat-like array
 time_boat = np.linspace(0,100,101)
@@ -32,9 +33,4 @@ time_fish = np.delete(time_fish,removal_indices)
 
 # Plot
 makegraph(boat_noise,time_fish)
-newboat = corrdata(fakeboat,fakefish,2,1,3)
-plt.plot(newboat,fakefish,'o')
-plt.xlabel('Boat Noise')
-plt.ylabel('Fish Noise')
-plt.title('Boats vs. Fish, Test Data')
-plt.show()
+corrdata(boat_noise[1],time_fish,100,5,1,True)
