@@ -4,16 +4,19 @@ from scipy.signal import stft
 from scipy.signal import find_peaks
 import matplotlib.pyplot as plt
 import numpy as np
+import time
+
+start_time = time.time()
 
 # Initializing these values just in case the audio file doesn't exist, that way Python doesn't show an error
 sample_rate = 0
 data = np.ndarray([])
 
 # Walk through files in our folder in Public and find the file that matches the input
-for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture\Initial Data for Testing'):
+for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture'):
     for name in files:
         # print(os.path.abspath(os.path.join(root, name)))
-        if name == "FFT_Test_2.wav":
+        if name == "FFT_Test.wav":
             [sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
             # .wav files import as 2-column arrays of sampled audio at 44100 Hz
 
@@ -46,32 +49,45 @@ for i in range(0, len(psd)):
 for i in range(0, len(psd)-smoothness): # A moving average
     psd[i] = sum(psd[i:i+smoothness])/(smoothness+1)
 
-# Using Scipy's find_peaks method
-timestamps_clean, _ = find_peaks(psd, height=1000000, distance=50)
+max_val = max(psd)
 
-# I didn't realize that scipy had a find_peaks method, so I wrote code to find peaks and group clusters into single peaks
-# pbar = np.mean(psd)
-# timestamps = np.where(psd > pbar)[0]
-#
-# timestamps_clean = np.array([])
-#
-# current_val = timestamps[0]
-# last_val = t[timestamps[0]]
-# for time_index in range(1, timestamps.size):
-#     if last_val >= t[timestamps[time_index]] - 0.1:
-#         last_val = t[timestamps[time_index]]
-#         continue
-#     else:
-#         timestamps_clean = np.append(timestamps_clean, current_val)
-#         current_val = timestamps[time_index]
-#         last_val = t[timestamps[time_index]]
-# if timestamps_clean[-1] != current_val:
-#     timestamps_clean = np.append(timestamps_clean, current_val)
-# print(timestamps_clean.size)
+# Using Scipy's find_peaks method
+timestamps, _ = find_peaks(psd, height=[1000000, 0.75*max_val], distance=50)
+
+# Snapping shrimp can reach up to 218 decibels and are basically always snapping, so they make a stable marker
+# This means that the loudest peaks on the PSD are always going to be snapping shrimp
+shrimp_stamps, _ = find_peaks(psd, height=0.75*max_val, distance=50)
+
+# Find the start of the very first group
+timestamps_groups = np.empty((0,2), int)
+init_time_index = None
+for init_time_index in range(0, timestamps.size-1):
+    if t[timestamps[init_time_index+1]]-t[timestamps[init_time_index]] < 3:
+        break
+if init_time_index != None:
+    start_time_index = init_time_index
+    # Find the endpoints of every other group of glupping
+    for time_index in range(init_time_index+1, timestamps.size-1):
+        prev_time = t[timestamps[time_index-1]]
+        next_time = t[timestamps[time_index+1]]
+        current_time = t[timestamps[time_index]]
+        # Find endpoints
+        if next_time-current_time > 3 and current_time-prev_time < 3:
+            timestamps_groups = np.append(timestamps_groups, [[timestamps[start_time_index], timestamps[time_index+1]]], axis=0)
+        # Find startpoints
+        if next_time-current_time < 3 and current_time-prev_time > 3:
+            # timestamps_groups = np.append(timestamps_groups, timestamps[time_index])
+            start_time_index = time_index
+
+print("--- %s seconds ---" % (time.time() - start_time))
 
 # Plot peaks
 fig = plt.plot(t, psd)
 axs = plt.axes()
-for time in np.nditer(timestamps_clean):
-    axs.axvline(t[int(time)], color='red', ymax=0.5)
+if timestamps.size > 0:
+    for time in np.nditer(shrimp_stamps):
+        axs.axvline(t[int(time)], color='red', ymax=0.5)
+if timestamps_groups.size > 0:
+    for time in np.nditer(timestamps_groups):
+        axs.axvline(t[int(time)], color='green', ymax=0.5)
 plt.show()
