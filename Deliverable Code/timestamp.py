@@ -1,7 +1,7 @@
 from scipy.signal import find_peaks
 import numpy as np
 
-def timestamp(f, t, psd):
+def timestamp(t, psd):
     """ This function takes in a numpy array of filtered audio, as well as a list of times and frequencies evaluated at
     and outputs the number of fish heard in a length of time
     f: numpy array
