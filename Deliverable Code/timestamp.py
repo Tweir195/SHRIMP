@@ -18,11 +18,13 @@ def timestamp(t, psd):
     shrimp_stamps, _ = find_peaks(psd, height=0.75 * max_val, distance=50)
 
     # Find the start of the very first group
-    timestamps_groups = np.empty((0, 2), int)
+    timestamps_groups = np.array([])
     init_time_index = None
     for init_time_index in range(0, timestamps.size - 1):
+        # Look for the first peak that has a closely clustered peak right after that, which indicates it's part of a group
         if t[timestamps[init_time_index + 1]] - t[timestamps[init_time_index]] < 3:
             break
+    # Look fo rhte rest of the groups:
     if init_time_index != None:
         start_time_index = init_time_index
         # Find the endpoints of every other group of glupping
@@ -31,10 +33,10 @@ def timestamp(t, psd):
             next_time = t[timestamps[time_index + 1]]
             current_time = t[timestamps[time_index]]
             # Find endpoints
-            if next_time - current_time > 3 and current_time - prev_time < 3:
-                timestamps_groups = np.append(timestamps_groups,
-                                              [[timestamps[start_time_index], timestamps[time_index + 1]]], axis=0)
+            if next_time - current_time > 3 and current_time - prev_time < 3:  # Make sure the previous peaks are clustered close and the next peaks are far
+                timestamps_groups = np.append(timestamps_groups, timestamps[start_time_index:time_index + 1])
             # Find startpoints
-            if next_time - current_time < 3 and current_time - prev_time > 3:
+            if next_time - current_time < 3 and current_time - prev_time > 3:  # Make sure the next peaks are clustered close and the previous peaks are far
+                # timestamps_groups = np.append(timestamps_groups, timestamps[time_index])
                 start_time_index = time_index
     return shrimp_stamps, timestamps_groups

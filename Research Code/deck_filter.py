@@ -22,7 +22,7 @@ for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture\Ini
 
         #if name == "FFT_Test_2.wav":
         #if name == "Symphony1.wav":
-        if name == "Brandon_Clipped_File.wav":
+        if name == "conv_through_VLC.wav":
             break
 
 [sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
