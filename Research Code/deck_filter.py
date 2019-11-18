@@ -13,6 +13,7 @@ amp_cap=1e1
 sample_rate = 0
 data = np.ndarray([])
 
+
 #import data & convert .wav to arrays
 for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture\Initial Data for Testing'):
     for name in files:
