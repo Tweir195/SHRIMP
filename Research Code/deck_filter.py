@@ -6,6 +6,7 @@ from scipy.signal import spectrogram
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 freq_cap=7000
 freq_floor=2000
 amp_cap=1e1
@@ -19,9 +20,11 @@ for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture\Ini
         #if name == "Boat_Test.wav":
 
         #if name == "FFT_Test_2.wav":
-        if name == "Symphony1.wav":
-            [sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
+        #if name == "Symphony1.wav":
+        if name == "Brandon_Clipped_File.wav":
+            break
 
+[sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
 #define data sample range
 data_sample = data[20*sample_rate:6*60*sample_rate, 0]
 
@@ -63,11 +66,13 @@ for line in range(0,len(Sxx)):
 for x in Sxx:
     print(x)
 
-#plt.subplot(2, 1, 1)
+plt.figure()
+plt.subplot(2,1,1)
 plt.pcolormesh(t_s, f_s, Sxx)
 plt.ylabel('frequency [hz]')
 plt.xlabel('time [sec]')
-plt.show()
+plt.title(name)
+
 
 
 #calculate power spectral density (psd)
@@ -88,9 +93,12 @@ for i in range(0, (len(psd)-smoothness)):
 
 trime = t_s[0:len(psd)-smoothness]
 
-#plt.subplot(2, 1, 2)
-#plt.plot(t_s, psd, trime, boatcheck)
-#plt.show()
+
+plt.subplot(2,1,2)
+plt.plot(t_s, psd, trime, boatcheck)
+plt.show()
+plt.ylabel('psd')
+plt.xlabel('time [sec]')
 
 
 # NEW CONTENT ENDS HERE
