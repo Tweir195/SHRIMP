@@ -3,7 +3,7 @@
 # Import graph making function
 from boatfilt import *
 from fishfilt import *
-#from timestamp import *
+from timestamp import *
 from corrdata import *
 from makegraph import *
 
@@ -14,7 +14,7 @@ import os
 from scipy.io.wavfile import read
 from scipy.signal import stft
 from scipy.signal.windows import hamming
-#from scipy.signal import find_peaks
+from scipy.signal import find_peaks
 
 # Define a boat-like array
 time_boat = np.linspace(0,100,101)
