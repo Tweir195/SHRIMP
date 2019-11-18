@@ -63,7 +63,7 @@ shrimp_stamps, _ = find_peaks(psd, height=0.75*max_val, distance=50)
 # Find the start of the very first group
 # Initialize timestamps_groups as a 1x2 array
 # Each row is a new group of glupping, with the format (starting time, ending time)
-timestamps_groups = np.empty((0,2), int)
+timestamps_groups = np.array([])
 init_time_index = None
 for init_time_index in range(0, timestamps.size-1):
     # Look for the first peak that has a closely clustered peak right after that, which indicates it's part of a group
@@ -79,7 +79,7 @@ if init_time_index != None:
         current_time = t[timestamps[time_index]]
         # Find endpoints
         if next_time-current_time > 3 and current_time-prev_time < 3: # Make sure the previous peaks are clustered close and the next peaks are far
-            timestamps_groups = np.append(timestamps_groups, [[timestamps[start_time_index], timestamps[time_index+1]]], axis=0)
+            timestamps_groups = np.append(timestamps_groups, timestamps[start_time_index:time_index+1])
         # Find startpoints
         if next_time-current_time < 3 and current_time-prev_time > 3: # Make sure the next peaks are clustered close and the previous peaks are far
             # timestamps_groups = np.append(timestamps_groups, timestamps[time_index])
