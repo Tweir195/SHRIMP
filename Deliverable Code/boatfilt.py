@@ -18,7 +18,7 @@ def boatfilt(sample_rate, data):
     #pass out the overall max values
 
     ####################################### what is the original type of data? how do we convert/manipulate it?
-    data_sample = data[20*sample_rate:6*60*sample_rate, 0]
+    data_sample = data[:,0]
 
     #take spectrogram for boat noises
     f_s, t_s, Sxx = spectrogram(data_sample, fs=sample_rate)
