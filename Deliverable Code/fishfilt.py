@@ -5,17 +5,12 @@ from scipy.signal.windows import hamming
 import matplotlib.pyplot as plt
 import numpy as np
 
-def fishfilt(data, sample_rate, starttime = 0, endtime = -1):
+def fishfilt(data, sample_rate):
     """This function takes in an array of audio data file and filters out boats and background noise to output
     a numpy array of filtered data
     """
     
-    # Start time and end time are optional parameters; if none are given it uses the whole file
-    if endtime == -1:
-        endtime = len(data)/sample_rate
-
-    # Trim that massive file down to a more manageable size, in the interest of processing time
-    data_sample = data[starttime*sample_rate:endtime*sample_rate, 0]
+    data_sample = data[:, 0]
 
     # Short Time Fourier Transform, because the gulps are a higher frequency and amplitude than the background noise.
     f, t, Zxx = stft(data_sample, fs=sample_rate)
@@ -49,4 +44,4 @@ def fishfilt(data, sample_rate, starttime = 0, endtime = -1):
     for i in range(0, len(esd)-smoothness):
         esd[i] = sum(esd[i:i+smoothness])/(smoothness+1)
 
-    return esd
+    return [t, esd]

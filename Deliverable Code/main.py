@@ -6,16 +6,47 @@ from fishfilt import *
 from timestamp import *
 from corrdata import *
 from makegraph import *
+from makefile import *
 
 import scipy.stats as stats
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import csv
+from datetime import datetime
 from scipy.io.wavfile import read
 from scipy.signal import stft
 from scipy.signal.windows import hamming
 from scipy.signal import find_peaks
 
+# Import the data
+#Import the audio file from Public
+for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture\Initial Data for Testing'): #Iterate through files in our testing folder
+    for name in files:
+        # print(os.path.abspath(os.path.join(root, name)))
+        if name == "FFT_Test_2.wav": #If the file is the one we want:
+            [sample_rate, data] = read(os.path.abspath(os.path.join(root, name))) #Open the file into a 2D array
+
+# Filter the data
+#boat = boatfilt(data)
+boat = [1,2,3]
+[t, fish] = fishfilt(data,sample_rate)
+
+# Timestamp the data
+timestamps = timestamp(t, fish)
+
+# Find correlation
+#corrdata(boat,fish,12,1,sample_rate)
+
+# Make the CSV file
+#print(len(timestamps[0]),len(timestamps[1]))
+#makefile(timestamps[0],boat,timestamps[1],'test_folder','testdata')
+
+# Plot the output
+#makegraph(boat,fish)
+
+
+"""
 # Define a boat-like array
 time_boat = np.linspace(0,100,101)
 boat_data = stats.norm.pdf(time_boat,loc=50,scale=10)
@@ -36,3 +67,4 @@ makegraph(boat_noise,time_fish)
 
 # Find correlation
 corrdata(boat_noise[1],time_fish,100,5,1,True)
+"""
