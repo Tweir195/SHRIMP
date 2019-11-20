@@ -14,7 +14,7 @@ def makegraph(boat,shrimp,fish,cliplength):
     """
     # GENERATE DATA STUFF------------------------------------------------------------------------------------------------------------------
     # Create an xaxis to unify the plots between 0 and 100 seconds with 5 second intervals
-    xaxis = np.array(range(0,cliplength,15))
+    xaxis = np.array(range(0,int(cliplength),15))
 
     # Generate numbers of shrimp and fish in each bucket in the x axis
     [hist_points_shrimp, null] = np.histogram(shrimp, bins=xaxis)

@@ -1,9 +1,8 @@
-def makefile(times,boat,fish,foldername,filename):
+def makefile(time,boat,fishstamps,foldername,filename):
     """This function takes in our filtered data and saves a .CSV file with
     the timestamps of fish noises
-    times: numpy array of timestamps
-    boat: numpy array of boat values
-    fish: numpy array of fish values
+    boat: numpy array of boat values and timestamps
+    fishstamps: numpy array of fish values
     foldername: string of the folder you want data to be saved in, new file will 
         be created if it doesn't exist
     filename: string of the filename you want to be saved, new file will be created
@@ -28,10 +27,12 @@ def makefile(times,boat,fish,foldername,filename):
     
     with open(csvFile,'a',newline='') as csvfile:
       writer = csv.writer(csvfile, delimiter=',')
-      writer.writerow(['Time','Boat','Fish'])
+      writer.writerow(['Boat Time','Boat Value','Fish Timestamp'])
       for i in range(len(boat)):
-        #I'm not sure if we need the time, boat, and fish to match length
-        writer.writerow([times[i],boat[i],fish[i]])
+          if i > len(fishstamps):
+              writer.writerow([boat[i],boat[i],fishstamps[i]])
+          #else:
+          #    writer.writerow([boat[i,0],boat[i,1]])
 
 if __name__ == "__main__":
     makefile([1,2,3],[2,2,2],[3,2,1],'test','test1')

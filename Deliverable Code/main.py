@@ -33,38 +33,10 @@ boat = boatfilt(sample_rate,data)
 
 # Timestamp the data
 [shrimpstamps,fishstamps] = timestamp(t, fish)
-print(fishstamps/sample_rate)
-
-# Find correlation
-#corrdata(boat,fish,12,1,sample_rate)
 
 # Make the CSV file
-#print(len(timestamps[0]),len(timestamps[1]))
-#makefile(timestamps[0],boat,timestamps[1],'test_folder','testdata')
+# In progress
+#makefile(boat,fishstamps,'test_folder','testdata')
 
 # Plot the output
-makegraph(boat,shrimpstamps,fishstamps, 90)
-
-
-"""
-# Define a boat-like array
-time_boat = np.linspace(0,100,101)
-boat_data = stats.norm.pdf(time_boat,loc=50,scale=10)
-boat_noise = [time_boat,boat_data]
-
-# Define a set of fish noises with timestamps
-time_fish = time_boat
-fish_array = np.empty(len(time_fish))
-removal_indices = []
-for i in range(0,len(time_fish)):
-    fish_array[i] = np.random.randint(0,2)
-    if fish_array[i] > 0:
-        removal_indices.append(i)
-time_fish = np.delete(time_fish,removal_indices)
-
-# Plot
-makegraph(boat_noise,time_fish)
-
-# Find correlation
-corrdata(boat_noise[1],time_fish,100,5,1,True)
-"""
+makegraph(boat,shrimpstamps,fishstamps, len(data[:,0])/sample_rate)
