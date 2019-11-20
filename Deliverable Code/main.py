@@ -43,7 +43,7 @@ print(fishstamps/sample_rate)
 #makefile(timestamps[0],boat,timestamps[1],'test_folder','testdata')
 
 # Plot the output
-makegraph(boat,shrimpstamps,fishstamps)
+makegraph(boat,shrimpstamps,fishstamps, 90)
 
 
 """
