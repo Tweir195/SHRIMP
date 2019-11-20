@@ -7,11 +7,12 @@ import numpy as np
 
 
 
-def boatfilt(sample_rate, data):
+def boatfilt(sample_rate, data,flag=False):
     """This function takes in a .WAV file and filters out background noise to output
     a numpy array of filtered data of boat noise
     sample_rate: int of units in samples per second
     data: multi-column array of audio data
+    flag: boolean, set True if testing function
     """
 
     #TO DO:
@@ -19,7 +20,6 @@ def boatfilt(sample_rate, data):
 
 
     ####################################### what is the original type of data? how do we convert/manipulate it?
-    print(len(data.shape))
     data_sample = data[:,0]
 
     #These are values that we chose to find the boat noises, they may not be perfect
@@ -71,7 +71,10 @@ def boatfilt(sample_rate, data):
 
     t_s = t_s[0:len(psd)-smoothness]  
 
-    return t_s, boatcheck
+    if flag == True:
+        return t_s, boatcheck, f_s, Sxx
+    else:
+        return t_s, boatcheck
 
 if __name__ == "__main__":
     from scipy.io.wavfile import read
@@ -96,13 +99,11 @@ if __name__ == "__main__":
                 break
 
     [sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
-    #define data sample range
-    data_sample = data[20*sample_rate:6*60*sample_rate, 0]
     #Plots of spectrogram & psd with boatcheck line
-    [times,boat] = boatfilt(sample_rate,data_sample)
+    [times,boat,f_s,sxx] = boatfilt(sample_rate,data,True)
     plt.figure()
     plt.subplot(2,1,1)
-    plt.pcolormesh(t_s, f_s, sxx)
+    plt.pcolormesh(times, f_s, sxx)
     plt.ylabel('frequency [hz]')
     plt.xlabel('time [sec]')
     plt.title(name)

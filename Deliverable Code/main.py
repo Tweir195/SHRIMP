@@ -28,13 +28,12 @@ for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture\Ini
             [sample_rate, data] = read(os.path.abspath(os.path.join(root, name))) #Open the file into a 2D array
 
 # Filter the data
-#boat = boatfilt(data)
-boat = [1,2,3]
+boat = boatfilt(sample_rate,data)
 [t, fish] = fishfilt(data,sample_rate)
 
 # Timestamp the data
-timestamps = timestamp(t, fish)
-print(len(timestamps[0]), len(timestamps[1]))
+[shrimpstamps,fishstamps] = timestamp(t, fish)
+print(fishstamps/sample_rate)
 
 # Find correlation
 #corrdata(boat,fish,12,1,sample_rate)
@@ -44,7 +43,7 @@ print(len(timestamps[0]), len(timestamps[1]))
 #makefile(timestamps[0],boat,timestamps[1],'test_folder','testdata')
 
 # Plot the output
-#makegraph(boat,fish)
+makegraph(boat,shrimpstamps,fishstamps)
 
 
 """

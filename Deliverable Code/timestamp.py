@@ -39,4 +39,6 @@ def timestamp(t, psd):
             if next_time - current_time < 3 and current_time - prev_time > 3:  # Make sure the next peaks are clustered close and the previous peaks are far
                 # timestamps_groups = np.append(timestamps_groups, timestamps[time_index])
                 start_time_index = time_index
-    return shrimp_stamps, timestamps_groups
+    shrimp_stamps_result = t[shrimp_stamps[:]]
+    fish_stamps_result = t[timestamps_groups[:]]
+    return shrimp_stamps_result, fish_stamps_result
