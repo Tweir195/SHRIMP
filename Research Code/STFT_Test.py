@@ -85,15 +85,19 @@ if init_time_index != None:
             # timestamps_groups = np.append(timestamps_groups, timestamps[time_index])
             start_time_index = time_index
 
+# timestamps_groups = timestamps_groups.astype(int)
+print(timestamps_groups)
+result = t[timestamps_groups.astype(int)]
+
 # print("--- %s seconds ---" % (time.time() - start_time)) #Check the runtime
 
 # Plot peaks
 fig = plt.plot(t, psd)
 axs = plt.axes()
-if timestamps.size > 0:
-    for time in np.nditer(shrimp_stamps):
-        axs.axvline(t[int(time)], color='red', ymax=0.5) #plot the highest peaks (shrimp peaks) in red vertical lines
-if timestamps_groups.size > 0:
-    for time in np.nditer(timestamps_groups):
-        axs.axvline(t[int(time)], color='green', ymax=0.5) #Plot the start and end points of each group of glupping in green
+# if timestamps.size > 0:
+#     for time in np.nditer(shrimp_stamps):
+#         axs.axvline(t[int(time)], color='red', ymax=0.5) #plot the highest peaks (shrimp peaks) in red vertical lines
+# if timestamps_groups.size > 0:
+#     for time in np.nditer(timestamps_groups):
+#         axs.axvline(t[int(time)], color='green', ymax=0.5) #Plot the start and end points of each group of glupping in green
 plt.show()
