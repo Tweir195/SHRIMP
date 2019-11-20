@@ -34,6 +34,7 @@ boat = [1,2,3]
 
 # Timestamp the data
 timestamps = timestamp(t, fish)
+print(len(timestamps[0]), len(timestamps[1]))
 
 # Find correlation
 #corrdata(boat,fish,12,1,sample_rate)
