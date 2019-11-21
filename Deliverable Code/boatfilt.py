@@ -63,18 +63,22 @@ def boatfilt(sample_rate, data,flag=False):
     #this is really the smoothing coefficient, but we're not using it for smoothing
     smoothness = 100
 
-    boatcheck = []
+    boat_smooth = []
+    f_s_smooth = []
+    Sxx_smooth = []
 
     for i in range(0, (len(psd)-smoothness)):
 
-        boatcheck.append(max(psd[i:i+smoothness]))
+        boat_smooth.append(max(psd[i:i+smoothness]))
+        f_s_smooth.append(max(psd[i:i+smoothness]))
+        Sxx_smooth.append(max(psd[i:i+smoothness]))
 
     t_s = t_s[0:len(psd)-smoothness]  
 
     if flag == True:
-        return t_s, boatcheck, f_s, Sxx
+        return t_s, boat_smooth, f_s_smooth, Sxx_smooth
     else:
-        return t_s, boatcheck
+        return t_s, boat_smooth
 
 if __name__ == "__main__":
     from scipy.io.wavfile import read
@@ -100,10 +104,10 @@ if __name__ == "__main__":
 
     [sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
     #Plots of spectrogram & psd with boatcheck line
-    [times,boat,f_s,sxx] = boatfilt(sample_rate,data,True)
+    [times,boat,f_s,Sxx] = boatfilt(sample_rate,data,True)
     plt.figure()
     plt.subplot(2,1,1)
-    plt.pcolormesh(times, f_s, sxx)
+    plt.pcolormesh(times, f_s, Sxx)
     plt.ylabel('frequency [hz]')
     plt.xlabel('time [sec]')
     plt.title(name)
