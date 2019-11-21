@@ -13,16 +13,16 @@ sample_rate = 0
 data = np.ndarray([])
 
 # Walk through files in our folder in Public and find the file that matches the input
-# for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture'):
-for root, dirs, files in os.walk(r'C:\Users\bzhang\Documents\Year 3\AstroStats\Project'):
+for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture'):
+# for root, dirs, files in os.walk(r'C:\Users\bzhang\Documents\Year 3\AstroStats\Project'):
     for name in files:
         # print(os.path.abspath(os.path.join(root, name)))
-        # if name == "FFT_Test_2.wav":
-        if name == "clip_test.wav":
+        if name == "Trimmed 1 Hour Sample.wav":
+        # if name == "clip_test.wav":
             [sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
             # .wav files import as 2-column arrays of sampled audio at 44100 Hz
 
-data_sample = data[:,0] #Commented out so I can easily switch between running on a section
+data_sample = data[:, 0] #Commented out so I can easily switch between running on a section
 # and running on the whole thing
 # data_sample = data[10*sample_rate:24*sample_rate, 0]
 
@@ -52,11 +52,15 @@ for i in range(0, len(psd)-smoothness): # A moving average
     psd[i] = sum(psd[i:i+smoothness])/(smoothness+1)
 
 max_val = max(psd)
+mean = np.mean(psd)
+print(mean)
+stddev = np.std(psd)
+print(stddev)
 
 # Using Scipy's find_peaks method
 # Peaks that are significantly above the baseline but not quite the highest peaks are likely glupping or other
-# fish-based noises
-timestamps, _ = find_peaks(psd, height=[0.1*max_val, 0.75*max_val], distance=50)
+# fish-based noises 3*stddev + mean
+timestamps, _ = find_peaks(psd, height=[3*stddev + mean, 0.75*max_val], distance=50)
 
 # Snapping shrimp can reach up to 218 decibels and are basically always snapping, so they make a stable marker
 # This means that the loudest peaks on the PSD are always going to be snapping shrimp
@@ -103,3 +107,5 @@ if timestamps_groups.size > 0:
     for time in np.nditer(timestamps_groups):
         axs.axvline(t[int(time)], color='green', ymax=0.5) #Plot the start and end points of each group of glupping in green
 plt.show()
+
+
