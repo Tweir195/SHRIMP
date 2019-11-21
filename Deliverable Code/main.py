@@ -36,7 +36,7 @@ boat = boatfilt(sample_rate,data)
 
 # Make the CSV file
 # In progress
-#makefile(boat,fishstamps,'test_folder','testdata')
+makefile(boat[0],boat[1],fishstamps,shrimpstamps,'test_folder','testdata')
 
 # Plot the output
-makegraph(boat,shrimpstamps,fishstamps, len(data[:,0])/sample_rate)
+makegraph(boat,shrimpstamps,fishstamps, len(data[:,0])/sample_rate,15)
