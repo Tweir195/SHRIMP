@@ -13,10 +13,12 @@ sample_rate = 0
 data = np.ndarray([])
 
 # Walk through files in our folder in Public and find the file that matches the input
-for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture'):
+# for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture'):
+for root, dirs, files in os.walk(r'C:\Users\bzhang\Documents\Year 3\AstroStats\Project'):
     for name in files:
         # print(os.path.abspath(os.path.join(root, name)))
-        if name == "FFT_Test_2.wav":
+        # if name == "FFT_Test_2.wav":
+        if name == "clip_test.wav":
             [sample_rate, data] = read(os.path.abspath(os.path.join(root, name)))
             # .wav files import as 2-column arrays of sampled audio at 44100 Hz
 
@@ -54,7 +56,7 @@ max_val = max(psd)
 # Using Scipy's find_peaks method
 # Peaks that are significantly above the baseline but not quite the highest peaks are likely glupping or other
 # fish-based noises
-timestamps, _ = find_peaks(psd, height=[1000000, 0.75*max_val], distance=50)
+timestamps, _ = find_peaks(psd, height=[0.1*max_val, 0.75*max_val], distance=50)
 
 # Snapping shrimp can reach up to 218 decibels and are basically always snapping, so they make a stable marker
 # This means that the loudest peaks on the PSD are always going to be snapping shrimp
@@ -69,7 +71,7 @@ for init_time_index in range(0, timestamps.size-1):
     # Look for the first peak that has a closely clustered peak right after that, which indicates it's part of a group
     if t[timestamps[init_time_index+1]]-t[timestamps[init_time_index]] < 3:
         break
-# Look fo rhte rest of the groups:
+# Look for the rest of the groups:
 if init_time_index != None:
     start_time_index = init_time_index
     # Find the endpoints of every other group of glupping
@@ -86,18 +88,18 @@ if init_time_index != None:
             start_time_index = time_index
 
 # timestamps_groups = timestamps_groups.astype(int)
-print(timestamps_groups)
-result = t[timestamps_groups.astype(int)]
+# print(timestamps_groups)
+# result = t[timestamps_groups.astype(int)]
 
-# print("--- %s seconds ---" % (time.time() - start_time)) #Check the runtime
+print("--- %s seconds ---" % (time.time() - start_time)) #Check the runtime
 
 # Plot peaks
 fig = plt.plot(t, psd)
 axs = plt.axes()
-# if timestamps.size > 0:
-#     for time in np.nditer(shrimp_stamps):
-#         axs.axvline(t[int(time)], color='red', ymax=0.5) #plot the highest peaks (shrimp peaks) in red vertical lines
-# if timestamps_groups.size > 0:
-#     for time in np.nditer(timestamps_groups):
-#         axs.axvline(t[int(time)], color='green', ymax=0.5) #Plot the start and end points of each group of glupping in green
+if timestamps.size > 0:
+    for time in np.nditer(shrimp_stamps):
+        axs.axvline(t[int(time)], color='red', ymax=0.5) #plot the highest peaks (shrimp peaks) in red vertical lines
+if timestamps_groups.size > 0:
+    for time in np.nditer(timestamps_groups):
+        axs.axvline(t[int(time)], color='green', ymax=0.5) #Plot the start and end points of each group of glupping in green
 plt.show()
