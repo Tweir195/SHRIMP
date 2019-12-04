@@ -22,13 +22,15 @@ def makegraph(boat,shrimp,fish,cliplength,time_interval):
     # Generate numbers of shrimp and fish in each bucket in the x axis
     [hist_points_shrimp, null] = np.histogram(shrimp, bins=xaxis)
     [hist_points_fish, null] = np.histogram(fish, bins=xaxis)
+    hist_points_shrimp = np.array(hist_points_shrimp, dtype=np.double)
+    hist_points_fish = np.array(hist_points_fish, dtype=np.double)
 
     # Remove all 0 points
     for i in range(0,len(xaxis)-1):
         if hist_points_shrimp[i] == 0:
-            hist_points_shrimp[i] = np.nan
+            hist_points_shrimp[i] = float('nan')
         if hist_points_fish[i] == 0:
-            hist_points_fish[i] = np.nan
+            hist_points_fish[i] = float('nan')
     
     # GENERATE PLOT STUFF------------------------------------------------------------------------------------------------------------------
     # Initialize plot, generate one set of axes for the shrimp and fish
