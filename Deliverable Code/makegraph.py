@@ -22,6 +22,13 @@ def makegraph(boat,shrimp,fish,cliplength,time_interval):
     # Generate numbers of shrimp and fish in each bucket in the x axis
     [hist_points_shrimp, null] = np.histogram(shrimp, bins=xaxis)
     [hist_points_fish, null] = np.histogram(fish, bins=xaxis)
+
+    # Remove all 0 points
+    for i in range(0,len(xaxis)-1):
+        if hist_points_shrimp[i] == 0:
+            hist_points_shrimp[i] = np.nan
+        if hist_points_fish[i] == 0:
+            hist_points_fish[i] = np.nan
     
     # GENERATE PLOT STUFF------------------------------------------------------------------------------------------------------------------
     # Initialize plot, generate one set of axes for the shrimp and fish
@@ -38,14 +45,14 @@ def makegraph(boat,shrimp,fish,cliplength,time_interval):
     ax2.set_ylabel('Relative Boat Volume')
     plt.title('Noises from Marine Life in Conjunction with Boats')
 
-    # Plot boat noise over time as a line
-    line = ax2.plot(boat[0],boat[1],'k')
-
     # Plot "histogram" of shrimp noises as points over time
     shrimp_dots = ax1.plot(xaxis, np.insert(hist_points_shrimp,0,0), color='orange', marker='.', linewidth=0, markersize=12)
 
     # Plot fish noises with duration as the dot size
     fish_dots = ax1.plot(xaxis, np.insert(hist_points_fish,0,0), '.', markersize=12)
+
+    # Plot boat noise over time as a line
+    line = ax2.plot(boat[0],boat[1],'k')
 
     # Tidy the graph, add a legend, and show plot
     fig.tight_layout()
