@@ -46,6 +46,8 @@ def boatfilt(sample_rate, data,flag=False):
     Sxx = Sxx[index2:index1]
     f_s = f_s[index2:index1]
 
+
+    #filtering out outliers in amplitude spikes to stop skewing main color plot results
     for line in range(0,len(Sxx)):
         for amp in range(0,len(Sxx[line])):
             if Sxx[line][amp] > amp_cap:
@@ -67,11 +69,13 @@ def boatfilt(sample_rate, data,flag=False):
     f_s_smooth = []
     Sxx_smooth = []
 
+
+    #Finding a smoothed max/min curve that can be analyzed later to flag for boat sounds
     for i in range(0, (len(psd)-smoothness)):
 
         boat_smooth.append(max(psd[i:i+smoothness]))
-        f_s_smooth.append(max(psd[i:i+smoothness]))
-        Sxx_smooth.append(max(psd[i:i+smoothness]))
+        f_s_smooth.append(psd[i])
+        Sxx_smooth.append(psd[i])
 
     t_s = t_s[0:len(psd)-smoothness]  
 

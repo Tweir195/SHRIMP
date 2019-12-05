@@ -9,9 +9,13 @@ def timestamp(t, psd):
     psd: numpy array
     """
     max_val = max(psd)
+    mean = np.mean(psd)
+    stddev = np.std(psd)
 
     # Using Scipy's find_peaks method
-    timestamps, _ = find_peaks(psd, height=[0.1*max_val, 0.75 * max_val], distance=50)
+    # Peaks that are significantly above the baseline but not quite the highest peaks are likely glupping or other
+    # fish-based noises 3*stddev + mean
+    timestamps, _ = find_peaks(psd, height=[3 * stddev + mean, 0.75 * max_val], distance=50)
 
     # Snapping shrimp can reach up to 218 decibels and are basically always snapping, so they make a stable marker
     # This means that the loudest peaks on the PSD are always going to be snapping shrimp
