@@ -24,7 +24,9 @@ from scipy.signal import find_peaks
 for root, dirs, files in os.walk(r'P:\+Courses\AstroStats\LivingSeaSculpture\Initial Data for Testing'): #Iterate through files in our testing folder
     for name in files:
         # print(os.path.abspath(os.path.join(root, name)))
-        if name == "Trimmed 1 Hour Sample.wav": #If the file is the one we want:
+<<<<<<< HEAD
+        if name == "FFT_Test.wav": #If the file is the one we want:
+>>>>>>> 8a62b64d993124bc68fc778083681f6faa351367
             [sample_rate, data] = read(os.path.abspath(os.path.join(root, name))) #Open the file into a 2D array
 
 # Filter the data
