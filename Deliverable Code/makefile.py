@@ -33,7 +33,7 @@ def makefile(time,boat,fishstamps,shrimpstamps,foldername,filename):
           elif i < len(fishstamps) and i >= len(shrimpstamps):
               writer.writerow([time[i],boat[i],fishstamps[i]])
           elif i >= len(fishstamps) and i < len(shrimpstamps):
-              writer.writerow([time[i],boat[i],shrimpstamps[i]])
+              writer.writerow([time[i],boat[i],0,shrimpstamps[i]])
           else:
               writer.writerow([time[i],boat[i]])
 

@@ -15,26 +15,22 @@ def corrdata(boat,fish,cliplength,timebucket,samplerate,plot=False):
     import matplotlib.pyplot as plt
     
     #Divide the timestamps of fish into buckets
-    times = np.array(range(0,cliplength+1,timebucket))
+    times = np.array(range(0,int(cliplength)+1,timebucket))
     [fishbucket,null] = np.histogram(fish,bins=times)
 
     #We need to find how much boat noise there is per timestamp
-    sampsize = timebucket*samplerate #Make sure we know how many values are in a second
+    sampsize = timebucket/samplerate #Make sure we know how many values are in a second
     #print('Sample size', sampsize)
-    remain = len(boat) % sampsize #Find out if our boat can be divided nicely
+    remain = int(len(boat) % sampsize) #Find out if our boat can be divided
     if remain !=0: #Let's make sure we don't have a remainder
         boat = boat[0:-remain]
     chunksize = len(boat)/sampsize
     boatchunk = np.array_split(boat,chunksize) #We split the array into equal smaller arrays
-    #print(boatchunk)
+    print(boatchunk)
     boatnoise = []
     for each in boatchunk: #Find the mean in each time bucket so that it matches the fish data
-        #print(each)
-        if len(each)!= sampsize:
-            print('The array was not divisible') #this catches a possible error
-            break
         boatmean = np.mean(each)
-        #print(each, boatmean)
+        print(each, boatmean)
         boatnoise.append(boatmean)
     
     #Correlate the two arrays, and output result
@@ -77,4 +73,4 @@ if __name__ == "__main__":
     time_fish = np.delete(time_fish,removal_indices)
 
 
-    corrdata(boat_noise[1],time_fish,100,5,1,True)
+    corrdata(boat_noise[1],time_fish,100.0,5,1,True)
